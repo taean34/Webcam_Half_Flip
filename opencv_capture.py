@@ -1,27 +1,19 @@
 # pip install opencv-python
 import cv2
 
-# For webcam input:
 cap = cv2.VideoCapture(0)
 
-while cap.isOpened():
-    ret, frame = cap.read()
-
-    # frame.shape (세로, 가로, 색 채널)
-    h = frame.shape[0]
-    w = frame.shape[1]
+while cap.isOpened():  # 계속 반복
+    ret, frame = cap.read()  # 프레임(장면) 1개 로딩
+    h = frame.shape[0]       # 높이(세로길이)
+    w = frame.shape[1]       # 너비(가로길)
     
-    # 대칭
-    flip = cv2.flip(frame, 1)
+    # 원본
+    original = frame.copy()
     
-    # 일부분만 대칭
-    fliphalf = frame.copy()
-    fliphalf[0:h, w//2:w] = cv2.flip(fliphalf[0:h, 0:w//2], 1)
-
-    # 보여주기
-    cv2.imshow('original', frame)
-    cv2.imshow('flip', flip)
-    cv2.imshow('fliphalf', fliphalf)
+    
+    # 결과 보여주기
+    cv2.imshow('original', original)
     
     # [ESC]키를 누르면 종료
     if cv2.waitKey(5) & 0xFF == 27:
